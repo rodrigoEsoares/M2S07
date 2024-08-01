@@ -21,6 +21,17 @@ class CursoController {
     }
   }
 
+  async listaTodos(request, response) {
+    try {
+      const cursos = await Curso.findAll();
+      response.json(cursos);
+    } catch (error) {
+      response.status(500).json({
+        mensagem: "Houve um erro ao listar os curso",
+      });
+    }
+  }
+
 
 }
 
