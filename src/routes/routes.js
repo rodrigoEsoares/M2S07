@@ -1,15 +1,9 @@
-const { Router } = require('express')
+const { Router } = require("express");
 
+const cursosRoutes = require("./cursos.routes");
 
-const routes = new Router()
+const routes = new Router();
 
-routes.get('/cursos', (request, response)=>{
+routes.use("/cursos", cursosRoutes);
 
-    response.send("seja bem vindo")
-
-})
-
-
-
-
-module.exports = routes
+module.exports = routes;
