@@ -32,6 +32,31 @@ class CursoController {
     }
   }
 
+  async atualizar(request, response) {
+    try {
+      const id = request.params.id;
+      const dados = request.body;
+
+      const curso = await Curso.findByPk(id);
+
+      if (!curso) {
+        return response.status(404).json({ mensagem: "Curso não encontrado" });
+      }
+
+      curso.nome = dados.nome ?? curso.nome;
+      curso.duracao = dados.duracao ??  curso.duracao;
+     
+      
+      await curso.save();
+
+      response.json(curso);
+    } catch (error) {
+      response.status(500).json({
+        mensagem: "Houve um erro ao atualizar o curso",
+      });
+    }
+  }
+
 
 }
 
