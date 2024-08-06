@@ -1,5 +1,5 @@
 const Curso = require("../models/Curso");
-
+const { Op } = require('sequelize')
 class CursoController {
 
   async criar(request, response) {
@@ -31,6 +31,27 @@ class CursoController {
       });
     }
   }
+
+  async listarUm(request, response) {
+    try {
+        const id = request.params.id
+
+        const curso = await Curso.findByPk(id)
+
+        if (!curso) {
+          return response
+                .status(404)
+                .json({ mensagem: 'Curso não encontrado' })
+        }
+
+        response.json(curso)
+
+    } catch (error) {
+        response.status(500).json({
+            mensagem: 'Houve um erro ao listar o curso'
+        })
+    }
+}
 
   async atualizar(request, response) {
     try {
@@ -78,6 +99,8 @@ class CursoController {
         })
     }
 }
+
+
 
 
 
